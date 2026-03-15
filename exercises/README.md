@@ -18,16 +18,15 @@ Powiązane skrypty dnia:
 ### Day 1 — Fundamenty + setup + pierwszy mini-flow
 - Skrypt: `../materials/scripts/day-1-script.md`
 - Ćwiczenia: sekcje Day 1 w `./03-exercises.md`
-  - D1-E1: onboarding środowiska + reguły bezpieczeństwa
-  - D1-E2: pierwsze prompty robocze (problem framing)
-  - D1-E3: mini-zadanie z krótką pętlą feedback
+  - D1-E1: safe setup + workflow start (`./day-1/d1-e1-safe-setup-starter.md`)
+  - D1-E2: quiz kalibracyjny + plan adaptacji (`./day-1/d1-e2-quiz-adaptation-starter.md`)
 
 ### Day 2 — Od wymagań do planu implementacji
 - Skrypt: `../materials/scripts/day-2-script.md`
 - Ćwiczenia: sekcje Day 2 w `./03-exercises.md`
-  - D2-E1: analiza problemu i kryteria akceptacji
-  - D2-E2: plan architektury i podział na zadania
-  - D2-E3: przygotowanie promptów implementacyjnych
+  - D2-E1: problem framing + acceptance criteria (`./day-2/d2-e1-problem-framing-starter.md`)
+  - D2-E2: architektura + model danych + ADR (`./day-2/d2-e2-architecture-adr-starter.md`)
+  - D2-E3: task slicing pod agenta (`./day-2/d2-e3-task-slicing-starter.md`)
 
 ### Day 3 — Budowa funkcji (Codex-first)
 - Skrypt: `../materials/scripts/day-3-script.md`

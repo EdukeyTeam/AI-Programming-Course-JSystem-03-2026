@@ -16,7 +16,9 @@ Po Day 1 uczestnicy mają:
   - D1-M3 Z pomysłu do planu: `prompts/02-module-prompts.md#d1-m3-pierwszy-prompt-z-pomysłu-do-planu`
 - Ćwiczenia Day 1: `exercises/03-exercises.md#day-1--start-bez-chaosu`
   - D1-E1 Safe setup: `exercises/03-exercises.md#d1-e1--safe-setup--workflow-start`
+  - D1-E1 starter: `exercises/day-1/d1-e1-safe-setup-starter.md`
   - D1-E2 Quiz + adaptacja: `exercises/03-exercises.md#d1-e2--quiz-kalibracyjny--plan-adaptacji`
+  - D1-E2 starter: `exercises/day-1/d1-e2-quiz-adaptation-starter.md`
 - Scenariusz demo na dziś: `materials/04-demo-scenarios.md#scenariusz-a--junior-dev-który-boi-się-zepsuć-produkcję`
 - Failure scenario na dziś: `materials/04-demo-scenarios.md#f4--prompt-zbyt-ogólny-chaotyczna-odpowiedź`
 - Materiał zbiorczy do wrzutek na czat: `prompts/02-module-prompts.md`

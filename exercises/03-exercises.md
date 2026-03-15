@@ -21,6 +21,8 @@ Każde ćwiczenie ma:
 ### D1-E1 — Safe setup + workflow start
 **Cel:** uruchomić Codex-first workflow z bezpiecznymi domyślnymi ustawieniami.
 
+**Starter file:** `exercises/day-1/d1-e1-safe-setup-starter.md`
+
 **Core**
 - Skonfiguruj lokalne środowisko pracy pod kurs (repo, terminal, podstawowe zasady pracy).
 - Przygotuj krótki plik zasad zespołowych (np. mini AGENTS/rules dla ćwiczeń).
@@ -40,6 +42,8 @@ Każde ćwiczenie ma:
 ### D1-E2 — Quiz kalibracyjny + plan adaptacji
 **Cel:** dostroić tempo i poziom kursu do grupy.
 
+**Starter file:** `exercises/day-1/d1-e2-quiz-adaptation-starter.md`
+
 **Core**
 - Przeprowadź quiz z `materials/quizzes/day-1-anonymous-ai-basics-quiz.md`.
 - Zbierz 3 obszary, które wymagają doprecyzowania w kolejnych dniach.
@@ -58,6 +62,8 @@ Każde ćwiczenie ma:
 ### D2-E1 — Problem framing + acceptance criteria
 **Cel:** przejść od pomysłu do precyzyjnego zakresu MVP.
 
+**Starter file:** `exercises/day-2/d2-e1-problem-framing-starter.md`
+
 **Core**
 - Opisz użytkownika, problem, wartość i granice MVP.
 - Zdefiniuj założenia, ograniczenia i kryteria akceptacji.
@@ -74,6 +80,8 @@ Każde ćwiczenie ma:
 
 ### D2-E2 — Architektura + model danych + ADR
 **Cel:** przygotować techniczny handoff do implementacji Day 3.
+
+**Starter file:** `exercises/day-2/d2-e2-architecture-adr-starter.md`
 
 **Core**
 - Szkic architektury high-level (komponenty, przepływy, granice).
@@ -93,6 +101,8 @@ Każde ćwiczenie ma:
 
 ### D2-E3 — Task slicing pod agenta
 **Cel:** rozbić pracę na małe zadania gotowe do realizacji przez człowieka + AI.
+
+**Starter file:** `exercises/day-2/d2-e3-task-slicing-starter.md`
 
 **Core**
 - Rozpisz backlog na małe, testowalne slice’y.
