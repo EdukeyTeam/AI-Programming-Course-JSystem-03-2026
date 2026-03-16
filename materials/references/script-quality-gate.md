@@ -11,6 +11,7 @@ Use this checklist before marking any day script task as DONE.
 - Czy blok ma: co mówię (szczegółowy scenariusz, nie tylko listę punktów) / co pokazuję / co wklejam na chat (konkretne linki, prompty, ćwiczenia, nie tylko brief concept) / ćwiczenie (link do konkretnego pliku md z ćwiczeniem - 1 plik na exercise) / feedback / czas?
 - Czy są sekcje: "Czego się nauczymy" i "Dlaczego warto"?
 - Czy narracja jest po polsku, z wyjaśnieniem angielskich terminów?
+- WAŻNE: to ma być skrypt jak scenariusz, co ja mam powiedzieć realnie, a nie lista punktów i pomysłów! W skrypcie potrzebuję od razu mieć co mam wkleić na chat, jakie ćwiczenie, jaki prompt, ja nie będę miał czasu chodzić po plikach i szperać, wszystko ma być w 1 pliku na każdy dzień!
 
 ## 3) Czas i wykonalność
 - Czy harmonogram mieści się w 9:00–16:00 + przerwy?
@@ -26,6 +27,7 @@ Use this checklist before marking any day script task as DONE.
 - Czy zachowany jest Codex-first?
 - Czy porównania Claude/IntelliJ są krótkie i rzeczowe?
 - Czy uniknięto tool sprawl (OpenCode/Goose/Cursor/Zed jako core)?
+- WAŻNE: czy jest zgodne z programem szkolenia z pliku `/materials/references/jsystems-program-ai-od-pomyslu-do-mvp.md`? Musi być zgodne z tym szczegółowym programem szkolenia na każdy dzień!
 
 ## 6) Cloud vs on-prem realizm
 - Czy pokazano "max możliwości" (cloud) + "jak to adaptować on-prem"?
