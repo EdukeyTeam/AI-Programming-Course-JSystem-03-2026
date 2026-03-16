@@ -8,6 +8,12 @@ Po Day 3 uczestnicy mają:
 - lepsze rozumienie, jak zachować audytowalność, guardrails i approvale w środowisku enterprise,
 - przygotowany materiał wejściowy do Day 4: testy, review, bezpieczeństwo i refaktoryzacja.
 
+## Zgodność z programem JSystems (Day 3)
+- **Moduł 3.1: Poznaj swoje AI-Powered IDE** → bloki `09:00–09:20`, `09:20–10:05`, `14:20–14:30`.
+- **Moduł 3.2: Full-Stack Generation & CLI Power** → bloki `10:05–11:00`, `11:15–12:05`, `12:05–13:00`.
+- **Moduł 3.3: AI-Assisted Debugging & Refactoring** → bloki `13:30–14:20`, `14:40–15:25`, `15:25–16:00`.
+- Adaptacja NBP: utrzymujemy strukturę JSystems, ale prowadzimy dzień w trybie Codex-first + audytowalny workflow enterprise (diff/test/commit/approval), żeby naturalnie wejść w Day 4 (quality/security).
+
 ## Linki dnia / mapa zależności
 - Prompty dla Day 3: `prompts/02-module-prompts.md#day-3--implementacja-rdzenia-codex-first`
 - Prompt pack Day 3 (quick copy): `prompts/day-3/day-3-prompt-pack.md`
@@ -541,6 +547,189 @@ Bez świadomego domknięcia łatwo zgubić decyzje, kontekst i ryzyka. Dobre pod
 - S2: uporządkowanie decyzji, ryzyk i priorytetów na Day 4.
 
 ---
+
+
+## Prompty trenerskie Day 3 (inline, gotowe do wklejenia)
+
+### Prompt 1 — Handoff i plan slice’ów (09:00)
+```text
+Działasz jako Tech Lead prowadzący dzień implementacyjny.
+
+Kontekst:
+- Mamy artefakty z Day 2: problem framing, kryteria akceptacji, architekturę high-level, model danych i backlog.
+- Celem Day 3 jest uruchomienie działającego rdzenia aplikacji małymi slice'ami.
+
+Twoje zadanie:
+1) Zaproponuj kolejność 3 pierwszych slice'ów (od najbezpieczniejszego do najbardziej ryzykownego).
+2) Dla każdego slice'a podaj: cel, Definition of Done, ryzyko, minimalny test.
+3) Dodaj sekcję "Czego dziś świadomie NIE robimy".
+
+Wymagania:
+- Odpowiedź po polsku.
+- Styl: operacyjnie, bez ogólników.
+```
+
+### Prompt 2 — Pierwszy slice backendowy (09:20)
+```text
+Jesteś senior backend developerem (Java + API).
+
+Zaimplementuj pierwszy mały slice backendowy według danych wejściowych.
+Wynik podaj w formacie:
+1) Plan zmian (max 6 punktów)
+2) Lista plików do zmiany
+3) Diff logiczny (co i dlaczego)
+4) Testy do uruchomienia
+5) Ryzyka i co zostaje na kolejną iterację
+
+Zasady:
+- Nie rozszerzaj zakresu poza slice.
+- Jeśli czegoś brakuje, zaproponuj najmniejsze założenie i oznacz je jawnie.
+- Priorytet: czytelność i audytowalność.
+```
+
+### Prompt 3 — Warstwa danych i guardrails (10:05)
+```text
+Działasz jako architekt danych i bezpieczeństwa.
+
+Na bazie aktualnego slice'a przygotuj minimalną implementację data-layer:
+- encje i relacje niezbędne TU i TERAZ,
+- walidacje wejścia,
+- jawne błędy domenowe,
+- ślad audytowy (co logujemy i po co).
+
+Wymuś rezultat:
+- Co implementujemy teraz
+- Co odkładamy
+- Jakie testy potwierdzą, że decyzja jest bezpieczna
+
+Nie dodawaj "future-proof kombajnu".
+```
+
+### Prompt 4 — Minimalny UI end-to-end (11:15)
+```text
+Jesteś Tech Leadem FE.
+
+Podłącz minimalny ekran UI do istniejącego backendu tak, żeby działał jeden pionowy przepływ end-to-end.
+
+Wymagania:
+- stany: loading / success / error,
+- komunikaty błędów zrozumiałe dla użytkownika biznesowego,
+- brak dodatkowych "upiększeń" poza zakresem,
+- gotowość do szybkiego demo.
+
+Format odpowiedzi:
+- Plan
+- Zmiany
+- Jak przetestować manualnie w 3 krokach
+- Co zostawić na później
+```
+
+### Prompt 5 — Pętla diff/test/commit (12:05)
+```text
+Zachowuj się jak inżynier jakości wspierający implementację.
+
+Przeanalizuj aktualny diff i przygotuj:
+1) Co jest zgodne z zakresem
+2) Co jest podejrzanym rozszerzeniem scope
+3) Jaki 1 celowany test uruchomić teraz
+4) Jaką minimalną poprawkę zrobić przed commitem
+5) Proponowaną treść commita (jednoznaczną, bez marketingu)
+
+Zasada nadrzędna: mały krok > duży skok.
+```
+
+### Prompt 6 — Debugging z dowodami (13:30)
+```text
+Jesteś specjalistą od debugowania produkcyjnego.
+
+Mamy błąd. Pracuj tylko na dowodach: objaw, kroki reprodukcji, expected vs actual, logi/stack trace.
+
+Twoje zadanie:
+- podaj 3 najbardziej prawdopodobne hipotezy,
+- wskaż najszybszy test weryfikujący każdą hipotezę,
+- zaproponuj najmniejszą bezpieczną poprawkę,
+- podaj ryzyko regresji i jak je ograniczyć.
+
+Nie proponuj przepisywania całego modułu.
+```
+
+### Prompt 7 — Bezpieczna refaktoryzacja (14:40)
+```text
+Jesteś code reviewerem i architektem utrzymywalności.
+
+Wykonaj bezpieczną refaktoryzację bez zmiany zachowania biznesowego.
+
+Zakres:
+- popraw czytelność,
+- usuń duplikacje,
+- uprość warunki,
+- popraw nazewnictwo,
+- zostaw kontrakty API bez zmian.
+
+Wynik:
+1) Lista mikro-zmian
+2) Uzasadnienie każdej zmiany
+3) Testy regresji do uruchomienia
+4) Co celowo NIE zostało dotknięte
+```
+
+### Prompt 8 — Handoff do Day 4 (15:25)
+```text
+Działasz jako Lead przygotowujący handoff implementacji do dnia jakościowego.
+
+Na podstawie stanu Day 3 przygotuj krótką notatkę handoff:
+- co działa end-to-end,
+- jakie decyzje architektoniczne potwierdziliśmy,
+- które obszary wymagają testów i security review w Day 4,
+- lista 5 ryzyk z priorytetami,
+- plan pierwszych 3 kroków na Day 4.
+
+Styl: konkretnie, jak notatka dla zespołu przed porannym stand-upem.
+```
+
+---
+
+## Szybkie copy-paste dla trenera (Day 3)
+
+### 1) Start dnia
+```text
+Dzień 3 = implementujemy rdzeń aplikacji w małych slice'ach: prompt → diff → test → poprawka → commit.
+```
+
+### 2) Zasada pracy z agentem
+```text
+Agent nie ma zgadywać. Dajemy mu: cel, zakres, ograniczenia, DoD i format wyniku.
+```
+
+### 3) Bezpieczny backend slice
+```text
+Najpierw mały kontrakt funkcjonalny, potem dane i walidacje. Bez rozszerzania zakresu.
+```
+
+### 4) End-to-end zamiast "pół systemu"
+```text
+Wolimy jeden działający przepływ UI↔API niż 10 niedokończonych funkcji.
+```
+
+### 5) Pętla jakości
+```text
+Każda iteracja przechodzi przez: diff, celowany test, minimalną poprawkę, mały commit.
+```
+
+### 6) Debugging
+```text
+Nie piszemy "nie działa". Podajemy dowody: reprodukcja, expected vs actual, logi, zakres.
+```
+
+### 7) Refaktoryzacja
+```text
+Refaktoryzujemy bez zmiany zachowania: czytelność i testowalność dziś, większe zmiany dopiero po decyzji zespołu.
+```
+
+### 8) Handoff do Day 4
+```text
+Kończymy dzień listą: co działa, co testujemy jutro, co idzie do security review i jakie są top ryzyka.
+```
 
 ## Notatki dla trenera
 - Trzymaj Codex jako główny tor i wracaj do niego po każdym krótkim porównaniu.
