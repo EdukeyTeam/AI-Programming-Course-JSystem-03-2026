@@ -8,6 +8,12 @@ Po Day 2 uczestnicy mają:
 - pierwszy ADR oraz zarys promptów/system promptu pod agentów,
 - rozpisany backlog małych, testowalnych slice’ów gotowych do wejścia w Day 3.
 
+## Zgodność z programem JSystems (Day 2)
+- **Moduł 2.1: Advanced Research & Planowanie projektu** → bloki `09:20–10:05`, `10:05–11:00`, `11:15–12:05`.
+- **Moduł 2.2: AI-Powered UX/UI Design** → blok `13:30–14:20`.
+- **Moduł 2.3: From Design to Code** (przygotowanie pod implementację) → bloki `14:20–14:30`, `14:40–15:25`, `15:25–16:00`.
+- Adaptacja NBP: nadal trzymamy strukturę JSystems, ale kończymy dzień gotowym handoffem pod Day 3 (Codex-first), zamiast wejścia w pełne kodowanie już dziś.
+
 ## Linki dnia / mapa zależności
 - Prompty dla Day 2: `prompts/02-module-prompts.md#day-2--architektura-dane-adr-zasady-dla-agentów`
 - Prompt pack Day 2 (quick copy): `prompts/day-2/day-2-prompt-pack.md`
@@ -592,3 +598,182 @@ Dobre zamknięcie zwiększa transfer wiedzy do pracy i daje poczucie postępu, a
 ### Kahneman cues
 - S1: intuicyjne wskazanie najcenniejszego elementu dnia.
 - S2: świadome przygotowanie wejścia do następnej sesji.
+
+---
+
+## Prompty trenerskie Day 2 (inline, gotowe do wklejenia)
+
+### Prompt 1 — Problem framing (09:20)
+```text
+Jesteś doświadczonym analitykiem produktu i architektem rozwiązania dla środowiska bankowego.
+
+Kontekst:
+- Budujemy MVP szkoleniowe "SOC Copilot Incident Triage".
+- Użytkownikami są: analityk bezpieczeństwa, lider zespołu, audytor.
+- Środowisko docelowe może być cloud lub on-prem.
+
+Twoje zadanie:
+1) Zdefiniuj problem w 4 sekcjach: użytkownik, ból, cel, miara sukcesu.
+2) Podaj 3 scenariusze użycia (happy path + 2 edge cases).
+3) Dodaj sekcję "Out of scope" (min. 5 punktów), żeby ograniczyć zakres MVP.
+4) Zakończ checklistą walidacyjną "czy to jest gotowe do wejścia w architekturę?".
+
+Wymagania:
+- Odpowiedź po polsku.
+- Krótko i konkretnie.
+- Bez marketingu i bez buzzwordów.
+```
+
+### Prompt 2 — Założenia/Ograniczenia/Kryteria akceptacji (10:05)
+```text
+Pracujesz jako AI Product/Tech Facilitator.
+
+Na podstawie poniższego problem framing przygotuj tabelę 3 kolumny:
+- Założenia
+- Ograniczenia
+- Kryteria akceptacji
+
+Wymagania jakości:
+- min. 8 założeń,
+- min. 8 ograniczeń (w tym bezpieczeństwo, audyt, prywatność, zgodność, on-prem opcja),
+- min. 10 kryteriów akceptacji, mierzalnych i testowalnych.
+
+Dodatkowo:
+- Oznacz każde kryterium etykietą: [FUNKCJONALNE], [JAKOŚĆ], [SECURITY], [OPERACYJNE].
+- Dodaj sekcję "Ryzyka jeśli pominiemy ten punkt".
+```
+
+### Prompt 3 — Architektura high-level (11:15)
+```text
+Działasz jako software architect.
+Zaproponuj architekturę high-level dla MVP, w formacie:
+1) Komponenty (4-6)
+2) Przepływ danych (krok po kroku)
+3) Punkty kontroli bezpieczeństwa i audytu
+4) Wariant cloud-max
+5) Wariant adaptacji on-prem
+6) Lista 5 pytań architektonicznych do doprecyzowania
+
+Założenia:
+- Priorytet: prostota, audytowalność, możliwość demonstracji na szkoleniu.
+- Stack orientacyjny: React + backend API + SQL.
+- Praca Codex-first, ale wynik ma być czytelny dla człowieka.
+```
+
+### Prompt 4 — Model danych i reguły domenowe (12:05)
+```text
+Jesteś architektem danych.
+Przygotuj model domeny dla MVP w formacie:
+- Encje
+- Relacje
+- Kluczowe pola
+- Reguły walidacyjne
+- Pola wrażliwe / audytowe
+
+Następnie dodaj:
+- 5 przykładowych rekordów testowych (zanonimizowanych),
+- listę błędów domenowych, które system musi obsłużyć,
+- mapę "encja -> endpoint API -> test".
+
+Odpowiedź po polsku, konkretnie i operacyjnie.
+```
+
+### Prompt 5 — UX/UI i przejście do implementacji (13:30)
+```text
+Działasz jako UX + Tech Lead.
+Na podstawie modelu domeny przygotuj:
+1) listę 3 najważniejszych ekranów,
+2) dla każdego ekranu: cel, akcje użytkownika, stany (loading/empty/error/success),
+3) kryteria akceptacji UI,
+4) pierwszy "vertical slice" do implementacji w Day 3.
+
+Dodaj sekcję:
+- "Bridge React -> Angular" (co jest 1:1, co wymaga translacji technicznej).
+
+Styl: krótko, wdrożeniowo, bez ogólników.
+```
+
+### Prompt 6 — Mini ADR (14:20)
+```text
+Napisz mini ADR (Architecture Decision Record) dla kluczowej decyzji Day 2.
+Format obowiązkowy:
+- Kontekst
+- Decyzja
+- Odrzucone alternatywy
+- Konsekwencje
+- Ryzyka
+- Kiedy wracamy do decyzji (trigger rewizji)
+
+Uwzględnij bankowy kontekst bezpieczeństwa i audytu.
+```
+
+### Prompt 7 — System prompt pod Day 3 (14:40)
+```text
+Stwórz system prompt dla agenta kodującego (Codex-first) dla Day 3.
+
+W system prompt uwzględnij:
+- cel sprintu dziennego,
+- zakres i out-of-scope,
+- styl pracy: małe kroki, diff/test/commit,
+- zasady bezpieczeństwa i ochrony danych,
+- zasady jakości (czytelność, testy, brak "magii"),
+- format odpowiedzi (plan -> diff -> testy -> ryzyka -> next step),
+- warunek stop: kiedy agent ma przerwać i poprosić człowieka o decyzję.
+
+Zakończ sekcją "Definition of Done dla pojedynczego slice'a".
+```
+
+### Prompt 8 — Task slicing backlog (15:25)
+```text
+Rozbij MVP na 8 pierwszych zadań implementacyjnych gotowych na Day 3.
+
+Dla każdego zadania podaj:
+- nazwę,
+- cel,
+- kryterium akceptacji,
+- szacowany czas,
+- zależności,
+- ryzyko,
+- czy lepiej: cloud-max demo czy on-prem adaptation note.
+
+Wymuś małe, demonstracyjne slice'y (max 60-90 min każdy).
+```
+
+---
+
+## Szybkie copy-paste dla trenera (Day 2)
+
+### 1) Start dnia
+```text
+Dzień 2 = zamieniamy pomysł w plan wdrożenia: problem framing, kryteria, architektura, dane, ADR, prompty i backlog slice'ów pod Day 3.
+```
+
+### 2) Problem framing
+```text
+Kto używa? Jaki ból? Jaki cel? Po czym mierzymy sukces? Czego NIE robimy w MVP?
+```
+
+### 3) Ograniczenia i akceptacja
+```text
+Proszę o 3 listy: założenia, ograniczenia, kryteria akceptacji. Bez tego AI będzie zgadywać zamiast pomagać.
+```
+
+### 4) Architektura
+```text
+Szkicujemy 4-6 komponentów, przepływy i punkty audytu/security. Ma być zrozumiałe dla człowieka i użyteczne dla AI.
+```
+
+### 5) UX/UI
+```text
+UI to nie konkurs piękności — to sposób na doprecyzowanie zachowania systemu i przygotowanie dobrych zadań dla agenta.
+```
+
+### 6) Prompting pod Day 3
+```text
+Dobry prompt = cel, kontekst, zakres, kryteria akceptacji, ograniczenia bezpieczeństwa i oczekiwany format wyniku.
+```
+
+### 7) Handoff
+```text
+Kończymy dzień backlogiem małych, testowalnych slice'ów. Jutro zaczynamy implementację bez chaosu i bez "zobaczymy co AI wymyśli".
+```
