@@ -9,8 +9,11 @@ function Write-Info {
 }
 
 function Invoke-WslRoot {
-    param([string]$Command)
-    wsl.exe -d Ubuntu -u root -- bash -lc $Command
+    param(
+        [string]$DistroName,
+        [string]$Command
+    )
+    wsl.exe -d $DistroName -u root -- bash -lc $Command
     return $LASTEXITCODE
 }
 
@@ -27,23 +30,70 @@ function Convert-ToWslPath {
     throw "Cannot convert path to WSL format: $WindowsPath"
 }
 
+function Normalize-UnixLineEndings {
+    param([string]$Path)
+
+    $content = [System.IO.File]::ReadAllText($Path)
+    $normalized = $content -replace "`r`n", "`n"
+
+    if ($normalized -ceq $content) {
+        return
+    }
+
+    $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+    [System.IO.File]::WriteAllText($Path, $normalized, $utf8NoBom)
+    Write-Info "Normalized LF line endings in $Path"
+}
+
+function Get-UbuntuDistroName {
+    $distros = wsl.exe -l -q |
+        ForEach-Object { ($_ -replace "`0", "").Trim() } |
+        Where-Object { $_ }
+
+    if (-not $distros) {
+        throw "No WSL distros found. Install Ubuntu first."
+    }
+
+    $exactMatch = $distros | Where-Object { $_ -eq "Ubuntu" } | Select-Object -First 1
+    if ($exactMatch) {
+        return $exactMatch
+    }
+
+    $ubuntuMatch = $distros |
+        Where-Object { $_ -match '^Ubuntu([-\s].*)?$' } |
+        Select-Object -First 1
+    if ($ubuntuMatch) {
+        return $ubuntuMatch
+    }
+
+    $fallbackMatch = $distros |
+        Where-Object { $_ -match 'Ubuntu' } |
+        Select-Object -First 1
+    if ($fallbackMatch) {
+        return $fallbackMatch
+    }
+
+    throw "Ubuntu distro not found in WSL. Available distros: $($distros -join ', ')"
+}
+
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $wslRepoRoot = Convert-ToWslPath -WindowsPath $repoRoot
+$bashScriptPath = Join-Path $PSScriptRoot "setup-postgres.sh"
 
 if (-not (Get-Command wsl.exe -ErrorAction SilentlyContinue)) {
     throw "WSL is not installed. Install WSL2 with Ubuntu or use Ubuntu directly."
 }
 
-$distros = wsl.exe -l -q | ForEach-Object { $_.Trim() } | Where-Object { $_ }
-if (-not ($distros -contains "Ubuntu")) {
-    throw "Ubuntu distro not found in WSL. Install Ubuntu first."
-}
+$ubuntuDistro = Get-UbuntuDistroName
+Write-Info "Using WSL distro '$ubuntuDistro'."
 
-Write-Info "Checking whether WSL Ubuntu uses systemd."
-$systemdCheck = Invoke-WslRoot "ps -p 1 -o comm= 2>/dev/null | grep -qx systemd"
+Normalize-UnixLineEndings -Path $bashScriptPath
+
+Write-Info "Checking whether WSL distro '$ubuntuDistro' uses systemd."
+$systemdCheck = Invoke-WslRoot -DistroName $ubuntuDistro -Command "ps -p 1 -o comm= 2>/dev/null | grep -qx systemd"
 if ($systemdCheck -ne 0) {
-    Write-Info "systemd is not enabled in Ubuntu WSL. Enabling it automatically."
-    Invoke-WslRoot @'
+    Write-Info "systemd is not enabled in WSL distro '$ubuntuDistro'. Enabling it automatically."
+    Invoke-WslRoot -DistroName $ubuntuDistro -Command @'
 mkdir -p /etc
 python3 - <<'PY'
 from pathlib import Path
@@ -96,6 +146,6 @@ PY
     wsl.exe --shutdown
 }
 
-Write-Info "Running PostgreSQL setup inside WSL Ubuntu."
+Write-Info "Running PostgreSQL setup inside WSL distro '$ubuntuDistro'."
 $command = "cd '$wslRepoRoot' && bash './scripts/setup-postgres.sh'"
-wsl.exe -d Ubuntu -u root -- bash -lc $command
+wsl.exe -d $ubuntuDistro -u root -- bash -lc $command
