@@ -1,6 +1,5 @@
 package com.silkycoders1.jsystemssilkycodders1.config;
 
-import com.agui.json.ObjectMapperFactory;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.StreamReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,9 +24,7 @@ public class ApplicationConfig {
         var factory = JsonFactory.builder()
                 .enable(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION)
                 .build();
-        var objectMapper = new ObjectMapper(factory);
-        ObjectMapperFactory.addMixins(objectMapper);
-        return objectMapper;
+        return new ObjectMapper(factory);
     }
 
     @Bean

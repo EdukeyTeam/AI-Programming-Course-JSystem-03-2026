@@ -1,13 +1,15 @@
 package com.silkycoders1.jsystemssilkycodders1.agui.sdk;
 
-import com.agui.core.agent.RunAgentParameters;
-import com.agui.core.context.Context;
-import com.agui.core.message.BaseMessage;
-import com.agui.core.state.State;
-import com.agui.core.tool.Tool;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.silkycoders1.jsystemssilkycodders1.agui.protocol.Context;
+import com.silkycoders1.jsystemssilkycodders1.agui.protocol.RunAgentParameters;
+import com.silkycoders1.jsystemssilkycodders1.agui.protocol.State;
+import com.silkycoders1.jsystemssilkycodders1.agui.protocol.Tool;
+import com.silkycoders1.jsystemssilkycodders1.agui.protocol.message.BaseMessage;
 
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AGUIParameters {
 
     private String threadId;
